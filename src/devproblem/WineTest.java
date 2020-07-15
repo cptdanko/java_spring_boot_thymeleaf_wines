@@ -1,13 +1,47 @@
 package devproblem;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import devproblem.models.Wine;
+import devproblem.wine.analytics.WineAnalytics;
+import devproblem.wine.analytics.WineStatistics;
 
 public class WineTest {
 
+	private static void setupTestCase2(WineStatistics stats) {
+		Wine ppnoo2vk = new Wine("15MPPN002-VK",100000.0);
+		ppnoo2vk.setDescription("2015 Mornington Peninsula Pinot Noir - Vintage Kerr special batch");
+		ppnoo2vk.setTankCode("T100-03");
+		ppnoo2vk.setProductState("Filtered");
+		ppnoo2vk.setOwnerName("Vintage Kerr");
+		
+		ppnoo2vk.getComponents().add(new GrapeComponent(60D, 2015, "Pinot Noir", "Mornington"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(2D, 2015, "Pinot Noir", "Yarra Valley"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(5D, 2014, "Pinot Noir", "Yarra Valley"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(3D, 2015, "Merlot", "Yarra Valley"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(1D, 2015, "Shiraz", "Mornington"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(2D, 2015, "Zinfandel", "Macedon"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(2D, 2014, "Malbec", "Port Phillip"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(10D, 2015, "Pinot Noir", "Mornington"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(10D, 2014, "Pinot Noir", "Mornington"));
+		ppnoo2vk.getComponents().add(new GrapeComponent(5D, 2013, "Cabernet", "Heathcote"));	
+		
+		System.out.println("=========Testing 15MPPN002=========");
+		System.out.println("     Year Breakdown    ");
+		System.out.println("========================");
+		printYearBreakdown(ppnoo2vk, stats);
+		System.out.println("     Variety Breakdown     ");
+		System.out.println("========================");
+		printVarietyBreakdown(ppnoo2vk, stats);
+		System.out.println("     Region Breakdown     ");
+		System.out.println("========================");
+		printRegionBreakdown(ppnoo2vk, stats);
+		System.out.println("     Year & Variety Breakdown     ");
+		System.out.println("========================");
+		printYearAndVarietyBreakdown(ppnoo2vk, stats);
+		
+	}
 	public static void main(String[] args) {
 
 		Wine w = new Wine("11YVCHAR001", 1000);
@@ -21,82 +55,44 @@ public class WineTest {
 		w.getComponents().add(new GrapeComponent(5D, 2011, "Pinot Noir", "Mornington"));
 		w.getComponents().add(new GrapeComponent(5D, 2010, "Pinot Noir", "Macedon"));
 		
+		WineStatistics wineStats = new WineAnalytics();
+
 		System.out.println("     Year Breakdown    ");
 		System.out.println("========================");
-		printYearBreakdown(w);
+		printYearBreakdown(w, wineStats);
 		System.out.println("     Variety Breakdown     ");
 		System.out.println("========================");
-		printVarietyBreakdown(w);
+		printVarietyBreakdown(w, wineStats);
 		System.out.println("     Region Breakdown     ");
 		System.out.println("========================");
-		printRegionBreakdown(w);
+		printRegionBreakdown(w, wineStats);
 		System.out.println("     Year & Variety Breakdown     ");
 		System.out.println("========================");
-		printYearAndVarietyBreakdown(w);
+		printYearAndVarietyBreakdown(w, wineStats);
+		setupTestCase2(wineStats);
+		
 
 	}
 
-	private static void printVarietyBreakdown(Wine w) {
-		Map<String, Double> varietyMap = new HashMap<String, Double>();
-		for (GrapeComponent gc : w.getComponents()) {
-			Double percentage = varietyMap.get(gc.getVariety());
-			if (percentage != null) {
-				varietyMap.put(gc.getVariety(), percentage + gc.getPercentage());
-			} else {
-				varietyMap.put(gc.getVariety(), gc.getPercentage());
-			}
-		}
+	private static void printVarietyBreakdown(Wine w, WineStatistics stats) {
+		Map<String, Double> varietyMap = stats.getVarietyBreakdown(w);
 		printData(varietyMap);
 	}
 
-	private static void printYearBreakdown(Wine w) {
-		Map<String, Double> yearMap = new HashMap<>();
-		for (GrapeComponent gc : w.getComponents()) {
-			String yearStr = "" + gc.getYear();
-			Double percentage = yearMap.get(yearStr);
-			if (percentage != null) {
-				yearMap.put(yearStr, percentage += gc.getPercentage());
-			} else {
-				yearMap.put(yearStr, gc.getPercentage());
-			}
-		}
+	private static void printYearBreakdown(Wine w, WineStatistics stats) {
+		Map<String, Double> yearMap = stats.getYearBreakdown(w);
 		printData(yearMap);
 	}
 
-	private static void printRegionBreakdown(Wine w) {
-		Map<String, Double> regionMap = new HashMap<String, Double>();
-		for (GrapeComponent gc : w.getComponents()) {
-			Double percentage = regionMap.get(gc.getRegion());
-			if (percentage == null) {
-				regionMap.put(gc.getRegion(), gc.getPercentage());
-			} else {
-				regionMap.put(gc.getRegion(), percentage += gc.getPercentage());
-			}
-		}
+	private static void printRegionBreakdown(Wine w, WineStatistics stats) {
+		Map<String, Double> regionMap = stats.getRegionBreakdown(w);
 		printData(regionMap);
 	}
 
-	private static void printYearAndVarietyBreakdown(Wine w) {
-		Map<String, Map<String, Double>> yrNVariety = new HashMap<String, Map<String, Double>>();
-		for (GrapeComponent gc : w.getComponents()) {
-			String yearStr = "" + gc.getYear();
-			Map<String, Double> yearVariety = yrNVariety.get(yearStr);
-			if (yearVariety == null) {
-				Map<String, Double> vMap = new HashMap<String, Double>();
-				vMap.put(gc.getVariety(), gc.getPercentage());
-				yrNVariety.put(yearStr, vMap);
-			} else {
-				Double existingPercent = yearVariety.get(gc.getVariety());
-				if (existingPercent == null) {
-					yearVariety.put(gc.getVariety(), gc.getPercentage());
-				} else {
-					yearVariety.put(gc.getVariety(), gc.getPercentage() + existingPercent);
-				}
-				yrNVariety.put(yearStr, yearVariety);
-			}
-		}
-		for(Entry<String, Map<String, Double>> entrySet: yrNVariety.entrySet()) {
-			System.out.println(entrySet.getKey()+",");
+	private static void printYearAndVarietyBreakdown(Wine w, WineStatistics stats) {
+		Map<String, Map<String, Double>> yrNVariety = stats.getYrnVBreakdown(w);
+		for (Entry<String, Map<String, Double>> entrySet : yrNVariety.entrySet()) {
+			System.out.println(entrySet.getKey() + ",");
 			printData(entrySet.getValue());
 		}
 	}
@@ -109,5 +105,4 @@ public class WineTest {
 		System.out.println(toPrint.toString());
 		System.out.println("------------------");
 	}
-
 }
