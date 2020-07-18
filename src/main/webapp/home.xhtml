@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- <html xmlns = "http://www.w3.org/1999/xhtml"> -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+
+   <h:head>
+      <title>JSF Tutorial!</title>
+      
+      <style>
+	      body {
+	      	padding:3px;
+	      	margin: 3px;
+	      }
+	      .home {
+				padding: 5px;
+				margin: 5px;
+			}
+		.hidden {
+			display: none;
+		}
+      </style>
+       <script>
+       function showComponents(id) {
+    	   var element = document.getElementById(id);
+    	   if(element.style.display == "block") {
+    		   element.style.display = "none";
+    	   } else {
+    		   element.style.display = "block";   
+    	   }
+       }
+       </script>
+   </h:head>
+   <body>
+      <h1>#{message.message}</h1>
+      				
+		<div class="home">
+			<ui:repeat var = "w" value ="#{dataStore.wines}">
+				<div class="home">
+					<h2> Code: #{w.lotCode} </h2>
+					<p> State: #{w.productState} </p>
+					<p> Volume: #{w.volume} </p>
+					<p> Owner: #{w.ownerName} </p>
+					<p> Description: #{w.description} </p>
+					<button onclick="showComponents('components_#{w.lotCode}')">
+						Toggle components
+					</button>
+					<div class="hidden" id="components_#{w.lotCode}">
+					<h3>Components </h3>
+						<ui:repeat var = "c" value= "#{w.percentageComponents}">
+							<h4>Region: #{c.region}</h4>
+							<p> Percentage: #{c.percentage}% </p>
+							<p> Year: #{c.year} </p>
+							<p> Variety: #{c.variety} </p>
+						</ui:repeat>
+					</div>
+				</div>
+				<hr />	
+			</ui:repeat>
+		</div>      
+ 
+   </body>
+</html>

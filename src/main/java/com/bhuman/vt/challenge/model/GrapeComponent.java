@@ -1,6 +1,5 @@
-package devproblem;
-
-public class GrapeComponent {
+package com.bhuman.vt.challenge.model;
+public class GrapeComponent implements Comparable<GrapeComponent> {
 
 	private double percentage;
 	private int year;
@@ -46,5 +45,8 @@ public class GrapeComponent {
 		this.region = region;
 	}
 
+	public int compareTo(GrapeComponent o) {
+		return Double.compare(o.percentage, percentage);
+	}
 }
 

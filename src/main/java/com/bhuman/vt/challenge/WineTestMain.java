@@ -1,14 +1,15 @@
-package devproblem;
+package com.bhuman.vt.challenge;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
-import devproblem.models.Wine;
-import devproblem.wine.analytics.WineAnalytics;
-import devproblem.wine.analytics.WineStatistics;
+import com.bhuman.vt.challenge.analytics.WineAnalytics;
+import com.bhuman.vt.challenge.analytics.WineStatistics;
+import com.bhuman.vt.challenge.model.GrapeComponent;
+import com.bhuman.vt.challenge.model.Wine;
 
-public class WineTest {
-
+public class WineTestMain {
+	
 	private static void setupTestCase2(WineStatistics stats) {
 		Wine ppnoo2vk = new Wine("15MPPN002-VK",100000.0);
 		ppnoo2vk.setDescription("2015 Mornington Peninsula Pinot Noir - Vintage Kerr special batch");

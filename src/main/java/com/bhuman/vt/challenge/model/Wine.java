@@ -1,25 +1,27 @@
-package devproblem.models;
+package com.bhuman.vt.challenge.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import devproblem.GrapeComponent;
 
 public class Wine implements Serializable {
 
 	private static final long serialVersionUID = -6892434771833441384L;
-	
+
 	// this is a simplified model for demonstration purposes
 
 	private Set<GrapeComponent> components = new HashSet<GrapeComponent>();
+	private List<GrapeComponent> percentageComponents = new ArrayList<GrapeComponent>();
 	private String lotCode;
 	private double volume;
 	private String description;
 	private String tankCode;
 	private String productState;
 	private String ownerName;
-	
+
 	public Wine(String lotCode, double volume) {
 		this.lotCode = lotCode;
 		this.volume = volume;
@@ -80,6 +82,17 @@ public class Wine implements Serializable {
 	public void setComponents(Set<GrapeComponent> components) {
 		this.components = components;
 	}
-	
-}
+	/*
+	 * Get a list of components in descending order by percentage
+	 */
+	public List<GrapeComponent> getPercentageComponents() {
+		percentageComponents = new ArrayList<GrapeComponent>(components);
+		Collections.sort(percentageComponents);
+		return percentageComponents;
+	}
 
+	public void setPercentageComponents(List<GrapeComponent> percentageComponents) {
+		this.percentageComponents = percentageComponents;
+	}
+
+}

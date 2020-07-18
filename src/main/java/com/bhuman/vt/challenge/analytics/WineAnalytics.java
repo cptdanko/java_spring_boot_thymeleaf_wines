@@ -1,16 +1,20 @@
-package devproblem.wine.analytics;
+package com.bhuman.vt.challenge.analytics;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import devproblem.GrapeComponent;
-import devproblem.models.Wine;
+import com.bhuman.vt.challenge.model.GrapeComponent;
+import com.bhuman.vt.challenge.model.Wine;
 
 public class WineAnalytics implements WineStatistics {
-
-	@Override
+	
+	/*
+	 * Percentage breakdown by year 
+	 * (non-Javadoc)
+	 * @see com.bhuman.vt.challenge.analytics.WineStatistics#getYearBreakdown(com.bhuman.vt.challenge.model.Wine)
+	 */
 	public Map<String, Double> getYearBreakdown(Wine w) {
-		Map<String, Double> yearMap = new HashMap<>();
+		Map<String, Double> yearMap = new HashMap<String, Double>();
 		for (GrapeComponent gc : w.getComponents()) {
 			String yearStr = "" + gc.getYear();
 			Double percentage = yearMap.get(yearStr);
@@ -22,8 +26,11 @@ public class WineAnalytics implements WineStatistics {
 		}
 		return yearMap;
 	}
-
-	@Override
+	/*
+	 * Percentage breakdown by region
+	 * (non-Javadoc)
+	 * @see com.bhuman.vt.challenge.analytics.WineStatistics#getRegionBreakdown(com.bhuman.vt.challenge.model.Wine)
+	 */
 	public Map<String, Double> getRegionBreakdown(Wine w) {
 		Map<String, Double> regionMap = new HashMap<String, Double>();
 		for (GrapeComponent gc : w.getComponents()) {
@@ -36,8 +43,11 @@ public class WineAnalytics implements WineStatistics {
 		}
 		return regionMap;
 	}
-
-	@Override
+	/*
+	 * Percentage breakdown by variety
+	 * (non-Javadoc)
+	 * @see com.bhuman.vt.challenge.analytics.WineStatistics#getVarietyBreakdown(com.bhuman.vt.challenge.model.Wine)
+	 */
 	public Map<String, Double> getVarietyBreakdown(Wine w) {
 		Map<String, Double> varietyMap = new HashMap<String, Double>();
 		for (GrapeComponent gc : w.getComponents()) {
@@ -50,8 +60,11 @@ public class WineAnalytics implements WineStatistics {
 		}
 		return varietyMap;
 	}
-
-	@Override
+	/*
+	 * Percentage breakdown 
+	 * (non-Javadoc)
+	 * @see com.bhuman.vt.challenge.analytics.WineStatistics#getYrnVBreakdown(com.bhuman.vt.challenge.model.Wine)
+	 */
 	public Map<String, Map<String, Double>> getYrnVBreakdown(Wine w) {
 		Map<String, Map<String, Double>> yrNVariety = new HashMap<String, Map<String, Double>>();
 		for (GrapeComponent gc : w.getComponents()) {

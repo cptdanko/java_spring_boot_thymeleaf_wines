@@ -1,16 +1,16 @@
-package devproblem.models;
+package com.bhuman.vt.challenge.tests;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import devproblem.GrapeComponent;
-import devproblem.wine.analytics.WineAnalytics;
-import devproblem.wine.analytics.WineStatistics;
+import com.bhuman.vt.challenge.analytics.WineAnalytics;
+import com.bhuman.vt.challenge.analytics.WineStatistics;
+import com.bhuman.vt.challenge.model.GrapeComponent;
+import com.bhuman.vt.challenge.model.Wine;
 
 public class WineTest {
 	
@@ -46,10 +46,6 @@ public class WineTest {
 		ppnoo2vk.getComponents().add(new GrapeComponent(10D, 2015, "Pinot Noir", "Mornington"));
 		ppnoo2vk.getComponents().add(new GrapeComponent(10D, 2014, "Pinot Noir", "Mornington"));
 		ppnoo2vk.getComponents().add(new GrapeComponent(5D, 2013, "Cabernet", "Heathcote"));
-		
-	}
-	@After
-	public void tearDown() throws Exception {
 		
 	}
 	
