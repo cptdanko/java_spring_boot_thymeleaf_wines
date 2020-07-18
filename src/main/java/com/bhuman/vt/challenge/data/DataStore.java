@@ -1,7 +1,9 @@
 package com.bhuman.vt.challenge.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,6 +17,7 @@ import com.bhuman.vt.challenge.model.WineState;
 public class DataStore {
 	
 	private List<Wine> wines = new ArrayList<Wine>();
+	private Map<String, Wine> wineMap = new HashMap<String, Wine>();
 	private WineState[] wineStates = new WineState[WineState.values().length];
 	
 	public DataStore() {
@@ -54,9 +57,14 @@ public class DataStore {
 		w.getComponents().add(new GrapeComponent(5D, 2010, "Pinot Noir", "Macedon"));
 		
 		wines.add(ppnoo2vk);
-		wines.add(w);		
+		wines.add(w);
+		
+		wineMap.put(ppnoo2vk.getLotCode(), ppnoo2vk);
+		wineMap.put(w.getLotCode(), w);
 	}
-	
+	public Wine getWine(String code) {
+		return wineMap.get(code);
+	}
 	public List<Wine> getWines() {
 		return wines;
 	}
