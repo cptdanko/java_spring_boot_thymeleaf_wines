@@ -40,7 +40,7 @@ public class Wine implements Serializable {
 	}
 
 	public double getVolume() {
-		return volume;
+		return Math.round(volume);
 	}
 
 	public void setVolume(double volume) {
@@ -84,11 +84,18 @@ public class Wine implements Serializable {
 	}
 	/*
 	 * Get a list of components in descending order by percentage
+	 * By default return the first 5 components
 	 */
 	public List<GrapeComponent> getPercentageComponents() {
 		percentageComponents = new ArrayList<GrapeComponent>(components);
 		Collections.sort(percentageComponents);
 		return percentageComponents;
+		//THE BELOW CODE MAYBE USED WHEN IMPLEMENTING THE 5 ROW LIMIT
+		/*if(this.percentageComponents.size() > 5) {
+			return this.percentageComponents.subList(0, 5); 
+		} else {
+			return percentageComponents;	
+		}*/
 	}
 
 	public void setPercentageComponents(List<GrapeComponent> percentageComponents) {

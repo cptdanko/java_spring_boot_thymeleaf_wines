@@ -1,15 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!-- <html xmlns = "http://www.w3.org/1999/xhtml"> -->
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"> 
 
    <h:head>
-      <title>JSF Tutorial!</title>
+      <title>Best Wines of Australia</title>
       
       <style>
 	      body {
@@ -42,16 +40,39 @@
 			<ui:repeat var = "w" value ="#{dataStore.wines}">
 				<div class="home">
 					<h2> Code: #{w.lotCode} </h2>
-					<p> State: #{w.productState} </p>
-					<p> Volume: #{w.volume} </p>
-					<p> Owner: #{w.ownerName} </p>
-					<p> Description: #{w.description} </p>
-					<button onclick="showComponents('components_#{w.lotCode}')">
-						Toggle components
-					</button>
+					<p> Description: <h:inputText
+					maxlength = "60" 
+					value = "#{w.description}" /> </p>
+					
+					<p> Volume: 
+						<h:inputText disabled="true" value="#{w.volume}"></h:inputText> 
+					</p>
+					<p> State:
+						<h:inputText maxlength="20" 
+						value="#{w.productState}" /> 
+					</p>
+					<p> Owner: 
+					<h:inputText disabled="true"
+					maxlength = "20"
+					value="#{w.ownerName}"></h:inputText> </p>
+					<div>
+						<h3>Component breakdown by</h3>
+						<h:button value="Year" class="home"> </h:button>
+						<h:button value="Region" class="home"> </h:button>
+						<h:button value="Variety" class="home"> </h:button>
+						<h:button value="Year And Variety" class="home"></h:button>
+					</div>
+					<div class="home" id="componentsStats">
+					</div>
+					<div>
+						<button onclick="showComponents('components_#{w.lotCode}')">
+							Toggle Wine components
+						</button>
+					</div>
 					<div class="hidden" id="components_#{w.lotCode}">
-					<h3>Components </h3>
-						<ui:repeat var = "c" value= "#{w.percentageComponents}">
+					<h3>Wine Components </h3>
+						<ui:repeat var = "c" 
+						value= "#{w.percentageComponents}">
 							<h4>Region: #{c.region}</h4>
 							<p> Percentage: #{c.percentage}% </p>
 							<p> Year: #{c.year} </p>

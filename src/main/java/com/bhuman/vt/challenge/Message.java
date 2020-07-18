@@ -7,7 +7,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class Message {
 
-	private String message = "Have a look at your wine collection";
+	private String message = "Wine collection";
 
 	public String getMessage() {
 		return message;

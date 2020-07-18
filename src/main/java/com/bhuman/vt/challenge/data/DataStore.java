@@ -1,22 +1,21 @@
 package com.bhuman.vt.challenge.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import com.bhuman.vt.challenge.model.GrapeComponent;
 import com.bhuman.vt.challenge.model.Wine;
+import com.bhuman.vt.challenge.model.WineState;
 
 @ManagedBean(name = "dataStore", eager = true)
 @RequestScoped
 public class DataStore {
 	
 	private List<Wine> wines = new ArrayList<Wine>();
-	private Map<String, Wine> wineMap = new HashMap<String, Wine>();
+	private WineState[] wineStates = new WineState[WineState.values().length];
 	
 	public DataStore() {
 		this.setupData();
@@ -54,16 +53,22 @@ public class DataStore {
 		w.getComponents().add(new GrapeComponent(5D, 2011, "Pinot Noir", "Mornington"));
 		w.getComponents().add(new GrapeComponent(5D, 2010, "Pinot Noir", "Macedon"));
 		
-		String key1 = ppnoo2vk.getLotCode() + " (" + ppnoo2vk.getTankCode() +")";
-		wineMap.put(key1, ppnoo2vk);
-		wineMap.put(w.getLotCode(), w);
 		wines.add(ppnoo2vk);
 		wines.add(w);		
 	}
+	
 	public List<Wine> getWines() {
 		return wines;
 	}
 	public void setWines(List<Wine> wines) {
 		this.wines = wines;
 	}
+	public WineState[] getWineStates() {
+		wineStates = WineState.values();
+		return wineStates;
+	}
+	public void setWineStates(WineState[] wineStates) {
+		this.wineStates = wineStates;
+	}
+	
 }
