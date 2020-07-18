@@ -2,87 +2,101 @@
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-   <h:head>
-      <title>Best Wines of Australia</title>
-      
-      <style>
-	      body {
-	      	padding:3px;
-	      	margin: 3px;
-	      }
-	      .home {
-				padding: 5px;
-				margin: 5px;
+<h:head>
+	<title>Best Wines of Australia</title>
+
+	<style>
+body {
+	padding: 3px;
+	margin: 3px;
+}
+
+.home {
+	padding: 5px;
+	margin: 5px;
+}
+.button {
+	font-size: larger;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: green;
+	padding: 5px;
+	color: #fff;
+}
+.button:hover {
+	cursor: crosshair;
+}
+.hidden {
+	display: none;
+}
+</style>
+	<script>
+		function showComponents(id) {
+			var element = document.getElementById(id);
+			if (element.style.display == "block") {
+				element.style.display = "none";
+			} else {
+				element.style.display = "block";
 			}
-		.hidden {
-			display: none;
 		}
-      </style>
-       <script>
-       function showComponents(id) {
-    	   var element = document.getElementById(id);
-    	   if(element.style.display == "block") {
-    		   element.style.display = "none";
-    	   } else {
-    		   element.style.display = "block";   
-    	   }
-       }
-       </script>
-   </h:head>
-   <body>
-      <h1>#{message.message}</h1>
-      				
-		<div class="home">
-			<ui:repeat var = "w" value ="#{dataStore.wines}">
-				<div class="home">
-					<h2> Code: #{w.lotCode} </h2>
-					<p> Description: <h:inputText
-					maxlength = "60" 
-					value = "#{w.description}" /> </p>
-					
-					<p> Volume: 
-						<h:inputText disabled="true" value="#{w.volume}"></h:inputText> 
-					</p>
-					<p> State:
-						<h:inputText maxlength="20" 
-						value="#{w.productState}" /> 
-					</p>
-					<p> Owner: 
-					<h:inputText disabled="true"
-					maxlength = "20"
-					value="#{w.ownerName}"></h:inputText> </p>
-					<div>
-						<h3>Component breakdown by</h3>
-						<h:button value="Year" class="home"> </h:button>
-						<h:button value="Region" class="home"> </h:button>
-						<h:button value="Variety" class="home"> </h:button>
-						<h:button value="Year And Variety" class="home"></h:button>
-					</div>
-					<div class="home" id="componentsStats">
-					</div>
-					<div>
-						<button onclick="showComponents('components_#{w.lotCode}')">
-							Toggle Wine components
-						</button>
-					</div>
-					<div class="hidden" id="components_#{w.lotCode}">
-					<h3>Wine Components </h3>
-						<ui:repeat var = "c" 
-						value= "#{w.percentageComponents}">
-							<h4>Region: #{c.region}</h4>
-							<p> Percentage: #{c.percentage}% </p>
-							<p> Year: #{c.year} </p>
-							<p> Variety: #{c.variety} </p>
-						</ui:repeat>
-					</div>
+	</script>
+</h:head>
+<body>
+	<h1>#{message.message}</h1>
+
+	<div class="home">
+		<ui:repeat var="w" value="#{dataStore.wines}">
+			<a class="button" onclick="showComponents('detail_#{w.lotCode}')">
+				Code: #{w.lotCode}
+			</a>
+			<div id="detail_#{w.lotCode}" class="hidden">
+				<p>Description:</p>
+				<h:inputText maxlength="60" value="#{w.description}" />
+
+				<p>Volume:</p>
+				<h:inputText disabled="true" value="#{w.volume}"></h:inputText>
+
+				<p>Tank:</p>
+				<h:inputText disabled="true" maxlength="6" value="#{w.tankCode}" />
+				
+				<p>State:</p>
+				<h:inputText maxlength="20" value="#{w.productState}" />
+
+				<p>Owner:</p>
+				<h:inputText disabled="true" maxlength="20" value="#{w.ownerName}"></h:inputText>
+
+				<div>
+					<h3>Component breakdown by</h3>
+					<h:button value="Year" class="home">
+					</h:button>
+					<h:button value="Region" class="home">
+					</h:button>
+					<h:button value="Variety" class="home">
+					</h:button>
+					<h:button value="Year And Variety" class="home"></h:button>
 				</div>
-				<hr />	
-			</ui:repeat>
-		</div>      
- 
-   </body>
+				<div class="home" id="componentsStats"></div>
+				<div>
+					<button onclick="showComponents('components_#{w.lotCode}')">
+						Toggle Wine components</button>
+				</div>
+				<div class="hidden" id="components_#{w.lotCode}">
+					<h3>Wine Components</h3>
+					<ui:repeat var="c" value="#{w.percentageComponents}">
+						<h4>Region: #{c.region}</h4>
+						<p>Percentage: #{c.percentage}%</p>
+						<p>Year: #{c.year}</p>
+						<p>Variety: #{c.variety}</p>
+					</ui:repeat>
+				</div>
+			</div>
+			<hr />
+		</ui:repeat>
+	</div>
+
+</body>
 </html>
