@@ -3,11 +3,11 @@
 This repository showcases a simple Java entreprise app that aims to analyse Wine data with regards to wines manufactured in Australia. 
 
 ### Technology used
-Java 1.8 
-Java Server Faces (JSF 2.1.7)
-Spring Boot (2.2.2)
-Junit (4.2)
-Vanilla Javascript to toggle Wine View
+- Java 1.8 
+- Java Server Faces (JSF 2.1.7)
+- Spring Boot (2.2.2)
+- Junit (4.2)
+- Vanilla Javascript to toggle Wine View in the UI
 
 # Installation and setup (for Eclipse)
 This project was built using Eclipse IDE, so the installation instructions here would be to set it up with Eclipse.
