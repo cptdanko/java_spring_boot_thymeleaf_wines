@@ -19,23 +19,40 @@ body {
 	padding: 5px;
 	margin: 5px;
 }
+
 .button {
 	font-size: larger;
 	font-weight: bold;
 	border-radius: 5px;
-	background-color: green;
 	padding: 5px;
 	color: #fff;
+	margin: 3px;
 }
+
+.green {
+	background-color: green;
+}
+
+.brown {
+	background-color: brown;
+}
+
+.purple {
+	background-color: purple;
+}
+
 .button:hover {
 	cursor: crosshair;
 }
+
 .hidden {
 	display: none;
 }
 </style>
 	<script>
-		function showComponents(id) {
+		/* Alternatively can use element.classList.add and remove
+		to achieve what's done below. */
+		function toggleVisibility(id) {
 			var element = document.getElementById(id);
 			if (element.style.display == "block") {
 				element.style.display = "none";
@@ -50,9 +67,9 @@ body {
 
 	<div class="home">
 		<ui:repeat var="w" value="#{dataStore.wines}">
-			<a class="button" onclick="showComponents('detail_#{w.lotCode}')">
-				Code: #{w.lotCode}
-			</a>
+			<a class="button green"
+				onclick="toggleVisibility('detail_#{w.lotCode}')"> Code:
+				#{w.lotCode} </a>
 			<div id="detail_#{w.lotCode}" class="hidden">
 				<p>Description:</p>
 				<h:inputText maxlength="60" value="#{w.description}" />
@@ -62,7 +79,7 @@ body {
 
 				<p>Tank:</p>
 				<h:inputText disabled="true" maxlength="6" value="#{w.tankCode}" />
-				
+
 				<p>State:</p>
 				<h:inputText maxlength="20" value="#{w.productState}" />
 
@@ -81,7 +98,8 @@ body {
 				</div>
 				<div class="home" id="componentsStats"></div>
 				<div>
-					<button onclick="showComponents('components_#{w.lotCode}')">
+					<button class="button brown"
+						onclick="toggleVisibility('components_#{w.lotCode}')">
 						Toggle Wine components</button>
 				</div>
 				<div class="hidden" id="components_#{w.lotCode}">
@@ -94,9 +112,18 @@ body {
 					</ui:repeat>
 				</div>
 			</div>
+			<div>
+				<h:form>
+					<h3></h3>
+					<h:commandLink class="button purple"
+						action="#{wineDetail.showDetail}" value="Show Details">
+						<f:param name="wineCode" value="#{w.lotCode}" />
+					</h:commandLink>
+				</h:form>
+			</div>
 			<hr />
 		</ui:repeat>
+		<div></div>
 	</div>
-
 </body>
 </html>

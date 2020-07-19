@@ -15,7 +15,7 @@ public class NavigationController implements Serializable {
 		return "This is the best navigation";
 	}
 	
-	public String moveToPage1() {
-		return "page1";
+	public String goHome() {
+		return "home";
 	}
 }
