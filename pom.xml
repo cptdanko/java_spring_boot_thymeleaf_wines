@@ -26,10 +26,14 @@
 	    <version>4.12</version>
 	    <scope>test</scope>
 	</dependency>
-    	<dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency>
+    <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
+     </dependency>
 
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -54,7 +58,11 @@
          <artifactId>jsf-impl</artifactId>
          <version>2.1.7</version>
       </dependency>
-    
+
+      <dependency>
+      	<groupId>org.springframework.boot</groupId>
+      	<artifactId>spring-boot-devtools</artifactId>
+      </dependency>
   </dependencies>
   <build>
     <finalName>Wine Collection</finalName>

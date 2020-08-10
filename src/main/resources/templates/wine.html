@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:head>
+	<title>Wine</title>
+
+	<style>
+body {
+	padding: 3px;
+	margin: 3px;
+}
+
+.home {
+	padding: 5px;
+	margin: 5px;
+}
+
+.button {
+	font-size: larger;
+	font-weight: bold;
+	border-radius: 5px;
+	padding: 5px;
+	color: #fff;
+	margin: 3px;
+}
+
+.green {
+	background-color: green;
+}
+
+.brown {
+	background-color: brown;
+}
+
+.purple {
+	background-color: purple;
+}
+
+.button:hover {
+	cursor: crosshair;
+}
+
+.hidden {
+	display: none;
+}
+
+table {
+	border: solid 2px gray;
+	padding: 5px;
+}
+
+tr, td, th {
+	border: solid 2px gray;
+	padding: 5px;
+}
+</style>
+</th:head>
+<body>
+	<div class="home">
+		<div>
+			<h2 th:text="${wine.lotCode}"></h2>
+			<p>
+				<span th:text="${wine.description}"></span>
+			</p>
+			<p>
+				<span th:text="${wine.volume}"></span>
+			</p>
+			<p>
+				<span th:text="${wine.tankCode}"></span>
+			</p>
+			<p>
+				<span th:text="${wine.productState}"></span>
+			</p>
+			<p>
+				<span th:text="${wine.ownerName}"></span>
+			</p>
+			<div>
+				<h3>Wine Components</h3>
+				<hr />
+				<table>
+					<tr>
+						<th>Region</th>
+						<th>Percentage</th>
+						<th>Year</th>
+						<th>Variety</th>
+					</tr>
+					<tr th:each="c: ${wine.percentageComponents}">
+						<td><span th:text="${c.region}"></span></td>
+						<td><span th:text="${c.percentage}"></span>%</td>
+						<td><span th:text="${c.year}"></span></td>
+						<td><span th:text="${c.variety}"></span></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+		</div>
+	</div>
+</body>
+</html>

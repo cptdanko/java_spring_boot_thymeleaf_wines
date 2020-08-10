@@ -11,9 +11,6 @@ public class NavigationController implements Serializable {
 
 	private static final long serialVersionUID = 8296015591703399370L;
 	
-	public String getNav() {
-		return "This is the best navigation";
-	}
 	
 	public String goHome() {
 		return "home";

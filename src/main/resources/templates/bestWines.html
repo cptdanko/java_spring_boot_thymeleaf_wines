@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Best Wines of Australia</title>
+
+	<style>
+	
+body {
+	padding: 3px;
+	margin: 3px;
+}
+
+.home {
+	padding: 5px;
+	margin: 5px;
+}
+
+.button {
+	font-size: larger;
+	font-weight: bold;
+	border-radius: 5px;
+	padding: 5px;
+	color: #fff;
+	margin: 3px;
+}
+
+.green {
+	background-color: green;
+}
+
+.brown {
+	background-color: brown;
+}
+
+.purple {
+	background-color: purple;
+}
+
+.button:hover {
+	cursor: crosshair;
+}
+
+.hidden {
+	display: none;
+}
+
+</style>
+</head>
+<body>
+	<h1>Australia's finest wines</h1>
+	<div class="home">
+		 <div th:each="wine : ${wines}">
+		 	<h2 th:text="${wine.lotCode}"></h2>
+		 	<p>
+		 		<span th:text="${wine.description}"></span>
+		 	</p>
+		 	<p>
+		 		<span th:text="${wine.volume}"></span>
+		 	</p>
+		 	<p>
+		 		<span th:text="${wine.tankCode}"></span>
+		 	</p>
+		 	<p>
+		 		<span th:text="${wine.productState}"></span>
+		 	</p>
+		 	<p>
+		 		<span th:text="${wine.ownerName}"></span>
+		 	</p>
+		 		<a th:href="@{/wine(code=${wine.lotCode})}"> View Details </a>
+			<hr/>
+		 </div>			
+	</div>
+</body>
+</html>
