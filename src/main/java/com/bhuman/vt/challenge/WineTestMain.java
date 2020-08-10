@@ -3,13 +3,15 @@ package com.bhuman.vt.challenge;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.bhuman.vt.challenge.analytics.WineAnalytics;
 import com.bhuman.vt.challenge.analytics.WineStatistics;
 import com.bhuman.vt.challenge.model.GrapeComponent;
 import com.bhuman.vt.challenge.model.Wine;
 
 public class WineTestMain {
 	
+	/*
+	 * Old code, only here for for now, to be removed
+	 */
 	private static void setupTestCase2(WineStatistics stats) {
 		Wine ppnoo2vk = new Wine("15MPPN002-VK",100000.0);
 		ppnoo2vk.setDescription("2015 Mornington Peninsula Pinot Noir - Vintage Kerr special batch");
@@ -43,7 +45,9 @@ public class WineTestMain {
 		printYearAndVarietyBreakdown(ppnoo2vk, stats);
 		
 	}
-	/*public static void main(String[] args) {
+	/*
+	 * Commented out the code so we can run the main app 
+	 * public static void main(String[] args) {
 
 		Wine w = new Wine("11YVCHAR001", 1000);
 		w.setDescription("2011 Yarra Valley Chardonnay");

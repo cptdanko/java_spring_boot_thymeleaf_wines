@@ -3,9 +3,12 @@ package com.bhuman.vt.challenge.analytics;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.bhuman.vt.challenge.model.GrapeComponent;
 import com.bhuman.vt.challenge.model.Wine;
 
+@Component
 public class WineAnalytics implements WineStatistics {
 	
 	/*

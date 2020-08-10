@@ -1,13 +1,14 @@
-# Wine Details (Java app with JSF and Spring boot)
+# Best Wines (Java app with JSF, Thymeleaf and Spring boot)
 
-This repository showcases a simple Java entreprise app that aims to analyse Wine data with regards to wines manufactured in Australia. 
+The goal of this repository is to show how to migrate some legacy Java app with JSF to a more modern Java app using Spring Boot and Thymeleaf. The app in question is an enterprise Java app that analyses Wine data with regards to wines manufactured in Australia. 
 
 ### Technology used
-- Java 1.8 
+- Java 8 
 - Java Server Faces (JSF 2.1.7)
 - Spring Boot (2.2.2)
+- Thymeleaf 
 - Junit (4.2)
-- Vanilla Javascript to toggle Wine View in the UI
+- Vanilla Javascript to toggle Wine View in the UI in JSF
 
 # Installation and setup (for Eclipse)
 This project was built using Eclipse IDE, so the installation instructions here would be to set it up with Eclipse.
@@ -112,6 +113,42 @@ As you can see, it uses
 - "<h:" from the JSF basic tags and
 - "<ui:" from Facelets
 
+### The same thing in wine.html 
+The same thing, except this one uses Thymeleaf, a more modern Java template engine
+```
+	<div class="home">
+		<div>
+			<h2 th:text="${wine.lotCode}"></h2>
+			<p>
+				<span th:text="${wine.description}"></span>
+			</p>
+...
+```
+The wine object in the above template comes from the Spring controller
+### Spring Controller (#Controller)
+```
+@Controller
+public class BestWinesSpring {
+
+	private DataStore ds = new DataStore();
+	private Wine wine;
+	
+	@GetMapping("/")
+	public String getBestWines(Model model) {
+		List<Wine> wines = ds.getWines();
+		model.addAttribute("wines", wines);
+		return "bestWines";
+	}
+	@GetMapping("/wine")
+	public String getWine(@RequestParam(value = "code", defaultValue = "15MPPN002-VK") String code, Model model) {
+		this.wine = ds.getWine(code);
+		model.addAttribute("wine", this.wine);
+		return "wine";
+	}
+}
+```
+For the sake of this exercise, we are supplying it with a default value for code we know will return data for sure.
+
 ### DOM Manipulation
 Dom manipulation is being done with vanilla Javascript. Here's the showComponents  used to show and hide (toggle) wine details.
 ```
@@ -132,18 +169,26 @@ This was not part of the requirements for this project, hence this is an added e
 The resource we are exposing are the WineAnalytics data resource and we do that using the Spring @RestController annotation, specigfy a @RequestMapping and return a response. Here's some code snippet for it
 ```
 @RestController
-@RequestMapping("analytics/breakdown")
-public class WineAnalyticsApiImpl implements WineAnalyticsApi {
-  private WineStatistics wineAnalytics = new WineAnalytics();
-  private DataStore ds = new DataStore();
-  
-  @Override
-  @GetMapping("/year")
-  public Map<String, Double> getYearBreakdown(String wineId) {
-    Wine w = ds.getWine(wineId);
-    return wineAnalytics.getYearBreakdown(w);
-  }
-...
+public class AnalyticsAPI {
+
+	@Autowired
+	private WineAnalytics analytics;
+
+	private DataStore dataStore = new DataStore();
+	
+	/*
+	 * We don't need to worry about parsing it to json 
+	 * it's automatically handled by Spring's 
+	 * MappingJackson2HttpMessageConverter. Jackson is on 
+	 * classPath so the data returned is converted to JSON
+	 */
+	@GetMapping("/api/breakdown/year")
+	public Map<String, Double> getYearBreakdown(@RequestParam(value = "code", defaultValue = "15MPPN002-VK") 
+	String code, Model model) {
+		Wine w = dataStore.getWine(code);
+		return analytics.getYearBreakdown(w);
+	}
+	....
 ```
 Notice, we don't need to convert the data we return to JSON because Spring handles this for us with it's HTTP response message converter support. Jackson 2 is already on Spring's classpath.
 
