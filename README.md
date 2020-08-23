@@ -1,7 +1,7 @@
 # Best Wines (Java app with JSF, Thymeleaf and Spring boot)
 
 The goal of this repository is to show how to migrate some legacy Java app with JSF to a more modern Java app using Spring Boot and Thymeleaf. The app in question is an enterprise Java app that analyses Wine data with regards to wines manufactured in Australia. 
-
+  
 ### Technology used
 - Java 8 
 - Java Server Faces (JSF 2.1.7)
