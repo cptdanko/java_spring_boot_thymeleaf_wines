@@ -192,5 +192,15 @@ public class AnalyticsAPI {
 ```
 Notice, we don't need to convert the data we return to JSON because Spring handles this for us with it's HTTP response message converter support. Jackson 2 is already on Spring's classpath.
 
+# More great tutorials and code samples
+Checkout [this blog] for more "how-to" code samples, tutorials and just info on how to solve problems.
+
+If you like what I am doing, you can [buy me a coffee]
+
+Click on the next link for more info on the 13+ year [software engineering career journey] of the author.
+
+[this blog]: https://mydaytodo.com/blog/
+[buy me a coffee]: https://www.buymeacoffee.com/bhumansoni
+
 # Conclusion
 If you need to know anything more about this? You can contact me directly through my email address that you see on my Github profile. If you would like to know more, you can also checkout my blog at https://mydaytodo.com/blog/
