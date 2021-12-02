@@ -102,29 +102,13 @@ This is a simple JSF that uses some basic JSF tags with Facelets and vanilla Jav
   <ui:repeat var="w" value="#{dataStore.wines}">
     <a class="button" onclick="showComponents('detail_#{w.lotCode}')">
       Code: #{w.lotCode}
-    </a>
-    <div id="detail_#{w.lotCode}" class="hidden">
-      <p>Description:</p>
-      <h:inputText maxlength="60" value="#{w.description}" />
-...
+    </a>...
 ```
 As you can see, it uses
 
 - "<h:" from the JSF basic tags and
 - "<ui:" from Facelets
 
-### The same thing in wine.html 
-The same thing, except this one uses Thymeleaf, a more modern Java template engine
-```
-	<div class="home">
-		<div>
-			<h2 th:text="${wine.lotCode}"></h2>
-			<p>
-				<span th:text="${wine.description}"></span>
-			</p>
-...
-```
-The wine object in the above template comes from the Spring controller
 ### Spring Controller (#Controller)
 ```
 @Controller
@@ -149,19 +133,6 @@ public class BestWinesSpring {
 ```
 For the sake of this exercise, we are supplying it with a default value for code we know will return data for sure.
 
-### DOM Manipulation
-Dom manipulation is being done with vanilla Javascript. Here's the showComponents  used to show and hide (toggle) wine details.
-```
-function showComponents(id) {
-  var element = document.getElementById(id);
-  if (element.style.display == "block") {
-    element.style.display = "none";
-  } else {
-    element.style.display = "block";
-  }
-}
-```
-
 # REST API
 This was not part of the requirements for this project, hence this is an added extra.
 
@@ -173,21 +144,10 @@ public class AnalyticsAPI {
 
 	@Autowired
 	private WineAnalytics analytics;
-
 	private DataStore dataStore = new DataStore();
-	
-	/*
-	 * We don't need to worry about parsing it to json 
-	 * it's automatically handled by Spring's 
-	 * MappingJackson2HttpMessageConverter. Jackson is on 
-	 * classPath so the data returned is converted to JSON
-	 */
 	@GetMapping("/api/breakdown/year")
 	public Map<String, Double> getYearBreakdown(@RequestParam(value = "code", defaultValue = "15MPPN002-VK") 
-	String code, Model model) {
-		Wine w = dataStore.getWine(code);
-		return analytics.getYearBreakdown(w);
-	}
+	String code, Model model) 
 	....
 ```
 Notice, we don't need to convert the data we return to JSON because Spring handles this for us with it's HTTP response message converter support. Jackson 2 is already on Spring's classpath.
@@ -201,6 +161,3 @@ Click on the next link for more info on the 13+ year [software engineering caree
 
 [this blog]: https://mydaytodo.com/blog/
 [buy me a coffee]: https://www.buymeacoffee.com/bhumansoni
-
-# Conclusion
-If you need to know anything more about this? You can contact me directly through my email address that you see on my Github profile. If you would like to know more, you can also checkout my blog at https://mydaytodo.com/blog/
