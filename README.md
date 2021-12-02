@@ -120,21 +120,9 @@ public class BestWinesSpring {
 	@GetMapping("/")
 	public String getBestWines(Model model) {
 		List<Wine> wines = ds.getWines();
-		model.addAttribute("wines", wines);
-		return "bestWines";
-	}
-	@GetMapping("/wine")
-	public String getWine(@RequestParam(value = "code", defaultValue = "15MPPN002-VK") String code, Model model) {
-		this.wine = ds.getWine(code);
-		model.addAttribute("wine", this.wine);
-		return "wine";
-	}
-}
+	.	..
 ```
 For the sake of this exercise, we are supplying it with a default value for code we know will return data for sure.
-
-# REST API
-This was not part of the requirements for this project, hence this is an added extra.
 
 ## Exposing resources 
 The resource we are exposing are the WineAnalytics data resource and we do that using the Spring @RestController annotation, specigfy a @RequestMapping and return a response. Here's some code snippet for it
